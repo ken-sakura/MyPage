@@ -1,13 +1,60 @@
-<!DOCTYPE html>
-<html lang="ja">
- <head>
- <meta charset="utf-8">
- <title>サイトタイトル</title>
- <link rel="stylesheet" href="style.css">
- <script src="main.js"></script>
- </head>
- <body>
-     <div>
-     </div>
- </body>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <style>
+            /* カード全体のスタイル */
+            .card_comp {
+                width: 450px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 20px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            /* h3タグのスタイル */
+            .card_comp h3 {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+
+            /* pタグのスタイル */
+            .card_comp p {
+                font-size: 16px;
+                line-height: 1.5;
+            }
+
+            /* aタグのスタイル */
+            .card_comp a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+            .image-container {
+                width: 1000px;
+                height: 500px;
+            }
+
+            .image-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; /* アスペクト比を維持したままコンテナに収める */
+            }
+        </style>
+    </head>
+    <body>
+        <h1>My Link Page</h1>
+        <div class="image-container">
+            <img src="image.png" alt="表示したい画像" />
+        </div>
+        <div class="card_comp" id="card1">
+            <h3>note</h3>
+            <p>私がnoteのページです。日記っぽい内容を投稿しています。</p>
+            <a href="https://note.com/ubu_work">note</a>
+        </div>
+        <div class="card_comp" id="card2">
+            <h3>くま日和</h3>
+            <p>My blog. 現在瞑想中。</p>
+            <a href="https://kumabiyori555.blogspot.com/">MySite</a>
+        </div>
+    </body>
 </html>
