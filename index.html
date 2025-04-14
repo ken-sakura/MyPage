@@ -2,91 +2,139 @@
     <head>
         <meta charset="utf-8" />
         <style>
-            /* 全体的なレイアウト */
             body {
                 display: flex;
                 flex-direction: column;
-                align-items: center; /* サイトタイトルと画像を中央揃え */
+                align-items: center;
+                justify-content: center;
                 min-height: 100vh;
+                margin: 0;
+                padding: 0;
+                background-color: #f8f8f8; /* 優しい背景色 */
+                font-family: "Helvetica Neue", Arial, sans-serif; /* フォントをHelvetica Neueに設定 */
+                color: #333; /* 基本のテキスト色を濃いグレーに */
+            }
+
+            /* コンテンツのコンテナ */
+            .container {
+                width: 100%;
+                max-width: 1000px;
                 padding: 20px;
-                box-sizing: border-box; /* paddingとborderをwidthに含める */
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
             }
 
             /* サイトタイトル */
             h1 {
+                font-size: 2.5em;
+                color: #333;
+                margin-bottom: 10px;
+                font-weight: bold;
                 text-align: center; /* 中央揃え */
-                margin-bottom: 20px;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* テキストに影を追加 */
             }
 
             /* 画像 */
             .image-container {
                 width: 100%;
                 max-width: 1000px;
-                margin-bottom: 20px;
+                border-radius: 10px; /* 角丸 */
+                overflow: hidden; /* 角丸を適用 */
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             }
-
             .image-container img {
                 width: 100%;
-                height: 500px;
-                display: block; /* 画像の周りの余白をリセット */
+                height: auto;
+                display: block;
+                max-height: 400px;
+                object-fit: cover;
+            }
+
+            /* カードコンテナ */
+            .cards-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+                width: 100%;
             }
 
             /* カード */
             .card_comp {
                 width: 100%; /* 初期値は画面幅いっぱいに表示 */
-                max-width: 480px; /* カードの最大幅 */
-                border: 1px solid #ccc;
-                border-radius: 5px;
+                max-width: 500px; /* カードの最大幅 */
+                border-radius: 10px;
+                background-color: #fff;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
                 padding: 20px;
-                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-                box-sizing: border-box; /* paddingとborderをwidthに含める */
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                transition: transform 0.3s ease, box-shadow 0.3s ease; /* ホバー時のトランジションを追加 */
+            }
+
+            .card_comp:hover {
+                transform: translateY(-5px); /* 少し上に持ち上げる */
+                box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* より強い影 */
+            }
+            .card_comp h3 {
+                margin: 0; /* h3のマージンをリセット */
+                font-size: 1.2em; /* h3のフォントサイズを調整 */
+                color: #007bff; /* リンクと同じ色に */
+                font-weight: bold;
+            }
+
+            .card_comp p {
+                margin: 0; /* pのマージンをリセット */
+                color: #555; /* pのテキスト色を調整 */
             }
             /* aタグのスタイル */
             .card_comp a.button {
-                padding: 10px 10px; /* 上下10px、左右20pxの余白 */
-                background-color: #007bff; /* 背景色 */
-                color: #fff; /* 文字色 */
-                border: none; /* 枠線を消す */
-                border-radius: 5px; /* 角丸 */
-                text-decoration: none; /* 下線を消す */
-                cursor: pointer; /* カーソルをポインターにする */
-                transition: all 0.3s ease; /* ホバー効果を滑らかに */
-                position: relative;
-                left: 340px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                text-decoration: none;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                text-align: center; /* テキストを中央揃え */
+                
             }
 
             .card_comp a.button:hover {
-                background-color: #0069d9; /* ホバー時の背景色 */
-                box-shadow: 0px 2px 4px in rgba(0, 0, 0, 0.2); /* ホバー時の影 */
+                background-color: #0056b3;
             }
 
-            /* レスポンシブデザイン */
             @media screen and (min-width: 768px) {
                 .card_comp {
-                    width: calc(50% - 5px); /* 768px以上の画面幅では2列表示 */
-                }
-                .card_comp a.button{
-                    width: calc(100% - 10px); /* 768px以上の画面幅では2列表示 */                    
+                    width: calc(50% - 20px); /* 2列表示 */
                 }
             }
         </style>
     </head>
     <body>
-        <h1>My Link Page</h1>
-        <div class="image-container">
-            <img src="image.png" alt="表示したい画像" />
-        </div>
-        <div class="card_comp">
-            <h3>note</h3>
-            <p>私がnoteのページです。日記っぽい内容を投稿しています。</p>
-            <a class="button" href="https://note.com/ubu_work">note</a>
-        </div>
-        <div class="card_comp">
-            <h3>くま日和</h3>
-            <p>My blog. 現在瞑想中。</p>
-            <a class="button" href="https://kumabiyori555.blogspot.com/"
-                >MySite</a
-            >
+        <div class="container">
+            <h1>My Link Page</h1>
+            <div class="image-container">
+                <img src="image.png" alt="表示したい画像" />
+            </div>
+            <div class="cards-container">
+                <div class="card_comp">
+                    <h3>note</h3>
+                    <p>私がnoteのページです。日記っぽい内容を投稿しています。</p>
+                    <a class="button" href="https://note.com/ubu_work">note</a>
+                </div>
+                <div class="card_comp">
+                    <h3>くま日和</h3>
+                    <p>My blog. 現在瞑想中。</p>
+                    <a class="button" href="https://kumabiyori555.blogspot.com/">MySite</a>
+                </div>
+            </div>
         </div>
     </body>
 </html>
