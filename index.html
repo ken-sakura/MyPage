@@ -3,16 +3,20 @@
         <meta charset="utf-8" />
         <style>
             body {
+                background: linear-gradient(to bottom, #c8e6c9, #388e3c); /* 緑のグラデーション */
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                justify-content: center;
+                /*justify-content: center;*/
                 min-height: 100vh;
                 margin: 0;
                 padding: 0;
-                background-color: #f8f8f8; /* 優しい背景色 */
-                font-family: "Helvetica Neue", Arial, sans-serif; /* フォントをHelvetica Neueに設定 */
-                color: #333; /* 基本のテキスト色を濃いグレーに */
+                font-family: "Helvetica Neue", Arial, sans-serif;
+                color: #333;
+            }
+
+            header {
+              width: 100%;
             }
 
             /* コンテンツのコンテナ */
@@ -20,17 +24,18 @@
                 width: 100%;
                 max-width: 1000px;
                 padding: 20px;
+                margin-top: 20px;
                 box-sizing: border-box;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                gap: 20px;
+                gap: 30px;
             }
 
             /* サイトタイトル */
             h1 {
                 font-size: 2.5em;
-                color: #333;
+                color: #333333;
                 margin-bottom: 10px;
                 font-weight: bold;
                 text-align: center; /* 中央揃え */
@@ -43,7 +48,7 @@
                 max-width: 1000px;
                 border-radius: 10px; /* 角丸 */
                 overflow: hidden; /* 角丸を適用 */
-                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             }
             .image-container img {
                 width: 100%;
@@ -68,7 +73,7 @@
                 max-width: 500px; /* カードの最大幅 */
                 border-radius: 10px;
                 background-color: #fff;
-                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
                 padding: 20px;
                 box-sizing: border-box;
                 display: flex;
@@ -79,25 +84,25 @@
 
             .card_comp:hover {
                 transform: translateY(-5px); /* 少し上に持ち上げる */
-                box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* より強い影 */
+                box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* より強い影 */
             }
             .card_comp h3 {
                 margin: 0; /* h3のマージンをリセット */
                 font-size: 1.2em; /* h3のフォントサイズを調整 */
-                color: #007bff; /* リンクと同じ色に */
+                color: #388e3c; /* リンクと同じ色に */
                 font-weight: bold;
             }
 
             .card_comp p {
                 margin: 0; /* pのマージンをリセット */
-                color: #555; /* pのテキスト色を調整 */
+                color: #777; /* pのテキスト色を調整 */
             }
             /* aタグのスタイル */
             .card_comp a.button {
-                background-color: #007bff;
-                color: white;
+                background-color: #388e3c;
+                color: #fff;
                 border: none;
-                padding: 10px 20px;
+                padding: 12px 20px;
                 border-radius: 5px;
                 text-decoration: none;
                 cursor: pointer;
@@ -106,7 +111,7 @@
                 
             }
 
-            .card_comp a.button:hover {
+            .card_comp a.button:hover { /* 緑を少し濃くする */
                 background-color: #0056b3;
             }
 
@@ -117,6 +122,8 @@
             }
         </style>
     </head>
+    <header>
+    </header>
     <body>
         <div class="container">
             <h1>My Link Page</h1>
@@ -125,15 +132,21 @@
             </div>
             <div class="cards-container">
                 <div class="card_comp">
-                    <h3>note</h3>
-                    <p>私がnoteのページです。日記っぽい内容を投稿しています。</p>
-                    <a class="button" href="https://note.com/ubu_work">note</a>
-                </div>
-                <div class="card_comp">
                     <h3>くま日和</h3>
-                    <p>My blog. 現在瞑想中。</p>
+                    <p>くまの日頃の日記？的なブログ。くまったことや日頃気になったことをメモメモ</p>
                     <a class="button" href="https://kumabiyori555.blogspot.com/">MySite</a>
                 </div>
+                <div class="card_comp">
+                    <h3>kumatech</h3>
+                    <p>くまの趣味のテック系もめメモ書き公開中。</p>
+                    <a class="button" href="https://ken-sakura.github.io/kumatech/">kumatech</a>
+                </div>
+                <div class="card_comp">
+                    <h3>note</h3>
+                    <p>noteのページです。日記っぽい内容を投稿しています。</p>
+                    <a class="button" href="https://note.com/ubu_work">note</a>
+                </div>
+
             </div>
         </div>
     </body>
