@@ -9,9 +9,12 @@
 
         body {
             /* 背景アニメーション */
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+           /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);*/
+           /* background: linear-gradient(-45deg, #f6d365, #fda085, #fb6f92, #ff8fab);*/
+           /* background: linear-gradient(-45deg, #4facfe, #00f2fe, #485563, #29323c);*/
+           background: linear-gradient(-45deg, #a8e063, #56ab2f, #2193b0, #6dd5ed);
             background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
+            animation: gradientAnimation 10s ease infinite;
 
             /* 元のスタイル */
             display: flex;
@@ -159,7 +162,7 @@
          @media screen and (min-width: 1024px) {
             .card_comp {
                  /* 3列表示も考慮する場合 (オプション) */
-                 /* width: calc(33.333% - 17px); */ /* (gap * 2 / 3) */
+                 width: calc(33.333% - 17px); /* (gap * 2 / 3) */
                  max-width: 400px; /* 3列なら最大幅を少し狭める */
             }
          }
