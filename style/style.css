@@ -1,0 +1,157 @@
+ body {
+    /* background: linear-gradient(-45deg, #f6d365, #fda085, #fb6f92, #ff8fab);*/
+    /* background: linear-gradient(-45deg, #4facfe, #00f2fe, #485563, #29323c);*/
+    background: linear-gradient(-45deg, #a8e063, #56ab2f, #2193b0, #6dd5ed);
+     background-size: 400% 400%;
+     animation: gradientAnimation 10s ease infinite;
+
+     /* 元のスタイル */
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     min-height: 100vh;
+     margin: 0;
+     padding: 0;
+     /* font-family: "Helvetica Neue", Arial, sans-serif; */ /* Interに変更 */
+     font-family: 'Inter', sans-serif;
+     color: #ffffff; /* テキスト色を白に変更 */
+     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* 読みやすさのため影を少し調整 */
+ }
+
+ /* 背景アニメーションのキーフレーム */
+ @keyframes gradientAnimation {
+     0% { background-position: 0% 50%; }
+     50% { background-position: 100% 50%; }
+     100% { background-position: 0% 50%; }
+ }
+
+ header {
+     width: 100%;
+ }
+
+ /* コンテンツのコンテナ */
+ .container {
+     width: 100%;
+     max-width: 1000px;
+     padding: 20px;
+     margin-top: 40px; /* 少しマージンを追加 */
+     margin-bottom: 40px; /* 下部にもマージンを追加 */
+     box-sizing: border-box;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 30px;
+ }
+
+ /* サイトタイトル */
+ h1 {
+     font-size: 2.8em; /* 少し大きく */
+     color: #ffffff; /* 白に変更 */
+     margin-bottom: 20px; /* マージン調整 */
+     font-weight: bold;
+     text-align: center;
+     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* 影を少し濃く */
+ }
+
+ /* 画像 */
+ .image-container {
+     width: 100%;
+     max-width: 1000px;
+     border-radius: 15px; /* 角丸を少し大きく */
+     overflow: hidden;
+     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25); /* 影を調整 */
+ }
+ .image-container img {
+     width: 100%;
+     height: auto;
+     display: block;
+     max-height: 400px;
+     object-fit: cover;
+ }
+
+ /* カードコンテナ */
+ .cards-container {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     gap: 25px; /* ギャップ調整 */
+     width: 100%;
+ }
+
+ /* カード */
+ .card_comp {
+     width: 100%;
+     max-width: 480px; /* 最大幅調整 */
+     border-radius: 12px; /* 角丸調整 */
+     /* 背景を少し透過させてガラスモーフィズム風に */
+     background-color: rgba(255, 255, 255, 0.85);
+     backdrop-filter: blur(5px); /* 背景ぼかし効果 */
+     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* 影調整 */
+     padding: 25px; /* パディング調整 */
+     box-sizing: border-box;
+     display: flex;
+     flex-direction: column;
+     gap: 12px; /* ギャップ調整 */
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     color: #333; /* カード内のテキスト色は黒系に */
+     text-shadow: none; /* カード内のテキストシャドウは解除 */
+ }
+
+ .card_comp:hover {
+     transform: translateY(-6px);
+     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+ }
+ .card_comp h3 {
+     margin: 0;
+     font-size: 1.3em; /* サイズ調整 */
+     /* color: #388e3c; */ /* 色を変更 */
+     color: #23a6d5; /* アニメーション背景の色の一つに合わせる */
+     font-weight: bold;
+ }
+
+ .card_comp p {
+     margin: 0;
+     color: #555; /* 少し濃く */
+     line-height: 1.6; /* 行間調整 */
+ }
+ /* aタグのスタイル */
+ .card_comp a.button {
+     /* background-color: #388e3c; */ /* 色を変更 */
+     background-color: #e73c7e; /* アニメーション背景の色の一つに合わせる */
+     color: #fff;
+     border: none;
+     padding: 12px 20px;
+     border-radius: 8px; /* 角丸調整 */
+     text-decoration: none;
+     cursor: pointer;
+     transition: background-color 0.3s ease, transform 0.2s ease; /* ホバー時のトランジション */
+     text-align: center;
+     font-weight: 500; /* 少し太く */
+     display: inline-block; /* 幅を内容に合わせる */
+     align-self: center; /* ボタンを中央に配置 */
+     margin-top: 10px; /* 上に少しマージン */
+ }
+
+ .card_comp a.button:hover {
+     /* background-color: #0056b3; */ /* 色を変更 */
+     background-color: #d83670; /* 少し濃く */
+     transform: scale(1.05); /* 少し拡大 */
+ }
+
+ /* レスポンシブ対応 */
+ @media screen and (min-width: 768px) {
+     .card_comp {
+         /* 2列表示 (gapを考慮) */
+         width: calc(50% - 12.5px); /* (gap / 2) */
+     }
+     h1 {
+         font-size: 3.5em; /* デスクトップではもう少し大きく */
+     }
+ }
+  @media screen and (min-width: 1024px) {
+     .card_comp {
+          /* 3列表示も考慮する場合 (オプション) */
+          width: calc(33.333% - 17px); /* (gap * 2 / 3) */
+          max-width: 400px; /* 3列なら最大幅を少し狭める */
+     }
+  }
