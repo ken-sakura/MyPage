@@ -33,7 +33,91 @@
                 <p>noteのページです。日記っぽい内容を投稿しています。</p>
                 <a class="button" href="https://note.com/ubu_work" target="_blank" rel="noopener noreferrer">note</a>
             </div>
-             </div>
+
+            <div class="card_comp">
+                <h3>最新のブログ記事</h3>
+                <div id="recent-posts-widget">
+                    記事を読み込み中...
+                </div>
+                </div>
+            </div>
     </div>
+
+    <script>
+    // ★ここをあなたのブログのURLに書き換えてね！例: "https://ramu-blog.blogspot.com"
+    const BLOG_URL = "https://kumabiyori555.blogspot.com"; // 君の「くま日和」ブログのURLだよ！
+
+    // ★表示したい記事の数を設定してね！
+    const NUM_POSTS = 5;
+
+    function loadRecentBlogPosts() {
+        const feedUrl = `${BLOG_URL}/feeds/posts/default?alt=json-in-script&max-results=${NUM_POSTS}`;
+        const container = document.getElementById("recent-posts-widget");
+
+        if (!container) {
+            console.error("記事リストを表示するコンテナが見つかりません。ID: 'recent-posts-widget' を確認してください。");
+            return;
+        }
+
+        fetch(feedUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`ネットワークエラー: ${response.statusText}`);
+                }
+                return response.text();
+            })
+            .then(text => {
+                let jsonString = text;
+                if (text.startsWith("gdata.io.h")) {
+                    jsonString = text.substring(text.indexOf('(') + 1, text.lastIndexOf(')'));
+                }
+                return JSON.parse(jsonString);
+            })
+            .then(data => {
+                container.innerHTML = ''; // 既存の内容をクリア
+
+                if (data.feed && data.feed.entry) {
+                    const ul = document.createElement("ul");
+                    ul.style.listStyle = 'none'; // デフォルトのリストスタイルをなくす
+                    ul.style.padding = '0'; // パディングをなくす
+                    ul.style.margin = '0'; // マージンをなくす
+
+                    data.feed.entry.forEach(entry => {
+                        const li = document.createElement("li");
+                        li.style.marginBottom = '8px'; // 各記事の下に少しスペース
+
+                        const a = document.createElement("a");
+                        const link = entry.link.find(l => l.rel === "alternate" && l.type === "text/html");
+
+                        if (link) {
+                            a.href = link.href;
+                            a.textContent = entry.title.$t;
+                            a.target = "_blank"; // 新しいタブで開く
+                            a.rel = "noopener noreferrer"; // セキュリティ対策
+                            a.style.color = '#23a6d5'; // リンクの色をカードタイトルの色に合わせる
+                            a.style.textDecoration = 'none'; // 下線をなくす
+                            a.style.fontWeight = 'bold'; // 太字に
+                            a.style.transition = 'color 0.3s ease'; // ホバーエフェクト
+                            a.onmouseover = function() { this.style.color = '#e73c7e'; }; // ホバー時の色
+                            a.onmouseout = function() { this.style.color = '#23a6d5'; }; // 元の色に戻す
+
+                            li.appendChild(a);
+                            ul.appendChild(li);
+                        }
+                    });
+                    container.appendChild(ul);
+                } else {
+                    container.textContent = "まだ投稿がないみたい...";
+                }
+            })
+            .catch(error => {
+                console.error("ブログ記事の読み込み中にエラーが発生しました:", error);
+                container.textContent = "記事の読み込み中にエラーが発生しました。詳細はコンソールを見てね。";
+            });
+    }
+
+    // ページが読み込まれたら記事をロードするよ
+    document.addEventListener("DOMContentLoaded", loadRecentBlogPosts);
+    </script>
 </body>
 </html>
