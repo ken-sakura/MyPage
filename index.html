@@ -1,45 +1,138 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="utf-8" />
-    <title>My Link Page with Animated Background</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/style.css">
+    <title>My Link Page</title>
+    
+    <!-- Tailwind CSSの読み込み -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Inter)の読み込み -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header>
-        </header>
-    <div class="container">
-        <h1>My Link Page</h1>
-        <div class="image-container">
-                <img src="image.png" alt="表示したい画像" />
-        </div>
-        <div class="cards-container">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #E0E0E0;
+            background-color: #2c3e50; /* フォールバック用の背景色 */
             
-            <div class="card_comp">
-                <h3>くま日和</h3>
-                <p>くまの日頃の日記？的なブログ。くまったことや日頃気になったことをメモメモ</p>
-                <a class="button" href="https://kumabiyori555.blogspot.com/" target="_blank" rel="noopener noreferrer">くま日和へ</a>
-            </div>
-            <div class="card_comp">
-                <h3>くま日和の最新記事</h3>
-                <div id="kumabiyori-recent-posts">記事を読み込み中...</div>
-            </div>
+            /* 背景画像を重ねて、明るい夜空と山々を表現 */
+            background-image: 
+                /* 星空のレイヤー */
+                radial-gradient(1px 1px at 10% 5%, white, transparent),
+                radial-gradient(1.5px 1.5px at 20% 15%, rgba(220, 220, 255, 0.9), transparent),
+                radial-gradient(1px 1px at 35% 8%, white, transparent),
+                radial-gradient(1px 1px at 50% 3%, white, transparent),
+                radial-gradient(1.5px 1.5px at 60% 12%, white, transparent),
+                radial-gradient(1px 1px at 75% 18%, rgba(220, 220, 255, 0.8), transparent),
+                radial-gradient(1px 1px at 90% 10%, white, transparent),
+                radial-gradient(1px 1px at 5% 30%, white, transparent),
+                radial-gradient(1.5px 1.5px at 25% 40%, rgba(220, 220, 255, 0.7), transparent),
+                radial-gradient(1px 1px at 45% 35%, white, transparent),
 
-            <div class="card_comp">
-                <h3>kumatech</h3>
-                <p>くまの趣味のテック系ブログ？。</p>
-                <a class="button" href="https://kumatech777.blogspot.com/" target="_blank" rel="noopener noreferrer">kumatechへ</a>
-            </div>
-            <div class="card_comp">
-                <h3>kumatechの最新記事</h3>
-                <div id="kumatech-recent-posts">記事を読み込み中...</div>
-            </div>
+                /* 明るい夜空のグラデーションのレイヤー */
+                linear-gradient(to top, #6e83a3 0%, #3a506b 30%, #2c3e50 100%);
+            
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* 背景をビューポートに固定 */
+        }
+        
+        /* SVGで山を表現するためのコンテナ */
+        .mountain-background {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            line-height: 0;
+            z-index: 0;
+        }
+        .mountain-background svg {
+            display: block;
+            width: 100%;
+            height: 220px;
+        }
 
-            </div>
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <div class="relative z-10 min-h-screen flex flex-col">
+        <header></header>
+        
+        <main class="flex-grow">
+            <!-- 導入セクション -->
+            <section class="py-24 md:py-40 text-center">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-white mb-6">
+                        Welcome to My Digital Garden
+                    </h1>
+                    <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                        日々の記録や、趣味のテクノロジーについて綴っています。
+                    </p>
+                </div>
+            </section>
+
+            <!-- リンクカードセクション -->
+            <section class="container mx-auto px-4 sm:px-6 py-12">
+				
+                <!-- ブログカードのコンテナ -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    
+                    <!-- くま日和 カード -->
+                    <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg flex flex-col">
+                        <h3 class="text-2xl font-bold text-white mb-3">くま日和</h3>
+                        <p class="text-gray-300 mb-4 flex-grow">くまの日頃の日記？的なブログ。くまったことや日頃気になったことをメモメモ</p>
+                        <a class="bg-white text-gray-900 font-bold py-2 px-6 rounded-full hover:bg-gray-200 transition-colors transform hover:scale-105 text-center" href="https://kumabiyori555.blogspot.com/" target="_blank" rel="noopener noreferrer">くま日和へ</a>
+                    </div>
+
+                    <!-- くま日和 最新記事 カード -->
+                    <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-bold text-white mb-4">くま日和の最新記事</h3>
+                        <div id="kumabiyori-recent-posts" class="text-gray-300">記事を読み込み中...</div>
+                    </div>
+
+                    <!-- kumatech カード -->
+                    <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg flex flex-col">
+                        <h3 class="text-2xl font-bold text-white mb-3">kumatech</h3>
+                        <p class="text-gray-300 mb-4 flex-grow">くまの趣味のテック系ブログ？。</p>
+                        <a class="bg-white text-gray-900 font-bold py-2 px-6 rounded-full hover:bg-gray-200 transition-colors transform hover:scale-105 text-center" href="https://kumatech777.blogspot.com/" target="_blank" rel="noopener noreferrer">kumatechへ</a>
+                    </div>
+
+                    <!-- kumatech 最新記事 カード -->
+                    <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-bold text-white mb-4">kumatechの最新記事</h3>
+                        <div id="kumatech-recent-posts" class="text-gray-300">記事を読み込み中...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 結びの挨拶セクション -->
+            <section class="py-20 md:py-28 text-center">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl font-bold text-white mb-4">Thanks for visiting!</h2>
+                    <p class="text-gray-300 max-w-xl mx-auto">
+                        ゆっくり見ていってください。何か面白い発見があれば嬉しいです。
+                    </p>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="py-6">
+             <div class="container mx-auto px-6 text-center text-gray-400 text-sm">
+                &copy; 2025 Kuma. All Rights Reserved.
+             </div>
+        </footer>
+    </div>
+
+    <!-- 背景の山々 -->
+    <div class="mountain-background">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,120 L250,50 C400,80 500,100 800,40 L1200,100 L1200,120 L0,120 Z" fill="#3b4a6b" opacity="0.8"></path>
+            <path d="M0,120 L150,80 C300,120 400,100 600,70 C800,100 900,110 1200,80 L1200,120 L0,120 Z" fill="#4a69bd"></path>
+        </svg>
     </div>
 
     <script>
@@ -48,12 +141,12 @@
         {
             id: 'kumabiyori', // HTMLのIDと合わせる
             url: "https://kumabiyori555.blogspot.com",
-            numPosts: 5 // 表示したい記事の数（多めにしたよ）
+            numPosts: 5
         },
         {
             id: 'kumatech', // HTMLのIDと合わせる
             url: "https://kumatech777.blogspot.com",
-            numPosts: 5 // 表示したい記事の数（多めにしたよ）
+            numPosts: 5
         }
     ];
 
@@ -71,16 +164,13 @@
 
         container.innerHTML = ''; // 既存の内容をクリア
 
-        if (data.feed && data.feed.entry) {
+        if (data.feed && data.feed.entry && data.feed.entry.length > 0) {
             const ul = document.createElement("ul");
-            ul.style.listStyle = 'none';
-            ul.style.padding = '0';
-            ul.style.margin = '0';
+            ul.className = 'space-y-2';
 
             data.feed.entry.forEach(entry => {
                 const li = document.createElement("li");
-                li.style.marginBottom = '6px';
-
+                
                 const a = document.createElement("a");
                 const link = entry.link.find(l => l.rel === "alternate" && l.type === "text/html");
 
@@ -89,14 +179,8 @@
                     a.textContent = entry.title.$t;
                     a.target = "_blank";
                     a.rel = "noopener noreferrer";
-                    a.style.color = '#555'; // カード内のテキスト色に合わせる
-                    a.style.fontSize = '0.9em';
-                    a.style.textDecoration = 'none';
-                    a.style.fontWeight = 'normal';
-                    a.style.transition = 'color 0.3s ease';
-                    a.onmouseover = function() { this.style.color = '#23a6d5'; };
-                    a.onmouseout = function() { this.style.color = '#555'; };
-
+                    a.className = 'text-gray-200 hover:text-white transition-colors duration-300';
+                    
                     li.appendChild(a);
                     ul.appendChild(li);
                 }
@@ -106,7 +190,6 @@
             container.textContent = "まだ投稿がないみたい...";
         }
 
-        // スクリプトタグをクリーンアップ
         const scriptTag = document.getElementById(`bloggerFeedScript-${blogId}`);
         if (scriptTag) {
             scriptTag.remove();
@@ -134,7 +217,7 @@
             script.onerror = function() {
                 const container = document.getElementById(`${config.id}-recent-posts`);
                 if (container) {
-                    container.textContent = "記事の読み込み中にエラーが発生しました。ブログURLを確認してください。";
+                    container.textContent = "記事の読み込み中にエラーが発生しました。";
                 }
                 console.error(`Bloggerフィード (${config.id}) の読み込みに失敗しました。`);
             };
@@ -145,4 +228,5 @@
     </script>
 </body>
 </html>
+
 
