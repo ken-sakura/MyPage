@@ -13,48 +13,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     
+    <!-- テーマCSSを読み込むためのlinkタグ。最初は空にしておく -->
+    <link id="theme-style" rel="stylesheet" href="">
+
     <style>
+        /* 基本的なスタイルのみここに残す */
         body {
             font-family: 'Inter', sans-serif;
-            color: #E0E0E0;
-            background-color: #2c3e50; /* フォールバック用の背景色 */
-            
-            /* 背景画像を重ねて、明るい夜空と山々を表現 */
-            background-image: 
-                /* 星空のレイヤー */
-                radial-gradient(1px 1px at 10% 5%, white, transparent),
-                radial-gradient(1.5px 1.5px at 20% 15%, rgba(220, 220, 255, 0.9), transparent),
-                radial-gradient(1px 1px at 35% 8%, white, transparent),
-                radial-gradient(1px 1px at 50% 3%, white, transparent),
-                radial-gradient(1.5px 1.5px at 60% 12%, white, transparent),
-                radial-gradient(1px 1px at 75% 18%, rgba(220, 220, 255, 0.8), transparent),
-                radial-gradient(1px 1px at 90% 10%, white, transparent),
-                radial-gradient(1px 1px at 5% 30%, white, transparent),
-                radial-gradient(1.5px 1.5px at 25% 40%, rgba(220, 220, 255, 0.7), transparent),
-                radial-gradient(1px 1px at 45% 35%, white, transparent),
-
-                /* 明るい夜空のグラデーションのレイヤー */
-                linear-gradient(to top, #6e83a3 0%, #3a506b 30%, #2c3e50 100%);
-            
-            background-repeat: no-repeat;
-            background-attachment: fixed; /* 背景をビューポートに固定 */
+            transition: background-color 0.5s ease; /* テーマ変更時のトランジション */
         }
-        
-        /* SVGで山を表現するためのコンテナ */
-        .mountain-background {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            line-height: 0;
-            z-index: 0;
-        }
-        .mountain-background svg {
-            display: block;
-            width: 100%;
-            height: 220px;
-        }
-
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -64,12 +31,12 @@
         
         <main class="flex-grow">
             <!-- 導入セクション -->
-            <section class="py-24 md:py-40 text-center">
+            <section class="py-24 md:py-32 text-center">
                 <div class="container mx-auto px-4">
-                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-white mb-6">
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-theme-title mb-6">
                         Welcome to My Digital Garden
                     </h1>
-                    <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                    <p class="text-lg text-theme-subtitle max-w-2xl mx-auto">
                         日々の記録や、趣味のテクノロジーについて綴っています。
                     </p>
                 </div>
@@ -77,154 +44,163 @@
 
             <!-- リンクカードセクション -->
             <section class="container mx-auto px-4 sm:px-6 py-12">
-				
-                <!-- ブログカードのコンテナ -->
+                <h2 class="text-3xl sm:text-4xl font-bold text-theme-title text-center mb-12">My Links</h2>
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    
-                    <!-- くま日和 カード -->
-                    <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg flex flex-col">
-                        <h3 class="text-2xl font-bold text-white mb-3">くま日和</h3>
-                        <p class="text-gray-300 mb-4 flex-grow">くまの日頃の日記？的なブログ。くまったことや日頃気になったことをメモメモ</p>
-                        <a class="bg-white text-gray-900 font-bold py-2 px-6 rounded-full hover:bg-gray-200 transition-colors transform hover:scale-105 text-center" href="https://kumabiyori555.blogspot.com/" target="_blank" rel="noopener noreferrer">くま日和へ</a>
+                    <!-- Cards will use theme variables for colors -->
+                    <div class="bg-theme-card border border-theme-card-border rounded-2xl p-6 shadow-lg flex flex-col">
+                        <h3 class="text-2xl font-bold text-theme-title mb-3">くま日和</h3>
+                        <p class="text-theme-text mb-4 flex-grow">くまの日頃の日記？的なブログ。くまったことや日頃気になったことをメモメモ</p>
+                        <a class="bg-theme-button text-theme-button-text font-bold py-2 px-6 rounded-full hover:bg-theme-button-hover transition-colors transform hover:scale-105 text-center" href="https://kumabiyori555.blogspot.com/" target="_blank" rel="noopener noreferrer">くま日和へ</a>
                     </div>
-
-                    <!-- くま日和 最新記事 カード -->
-                    <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg">
-                        <h3 class="text-2xl font-bold text-white mb-4">くま日和の最新記事</h3>
-                        <div id="kumabiyori-recent-posts" class="text-gray-300">記事を読み込み中...</div>
+                    <div class="bg-theme-card border border-theme-card-border rounded-2xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-bold text-theme-title mb-4">くま日和の最新記事</h3>
+                        <div id="kumabiyori-recent-posts" class="text-theme-text">記事を読み込み中...</div>
                     </div>
-
-                    <!-- kumatech カード -->
-                    <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg flex flex-col">
-                        <h3 class="text-2xl font-bold text-white mb-3">kumatech</h3>
-                        <p class="text-gray-300 mb-4 flex-grow">くまの趣味のテック系ブログ？。</p>
-                        <a class="bg-white text-gray-900 font-bold py-2 px-6 rounded-full hover:bg-gray-200 transition-colors transform hover:scale-105 text-center" href="https://kumatech777.blogspot.com/" target="_blank" rel="noopener noreferrer">kumatechへ</a>
+                    <div class="bg-theme-card border border-theme-card-border rounded-2xl p-6 shadow-lg flex flex-col">
+                        <h3 class="text-2xl font-bold text-theme-title mb-3">kumatech</h3>
+                        <p class="text-theme-text mb-4 flex-grow">くまの趣味のテック系ブログ？。</p>
+                        <a class="bg-theme-button text-theme-button-text font-bold py-2 px-6 rounded-full hover:bg-theme-button-hover transition-colors transform hover:scale-105 text-center" href="https://kumatech777.blogspot.com/" target="_blank" rel="noopener noreferrer">kumatechへ</a>
                     </div>
-
-                    <!-- kumatech 最新記事 カード -->
-                    <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg">
-                        <h3 class="text-2xl font-bold text-white mb-4">kumatechの最新記事</h3>
-                        <div id="kumatech-recent-posts" class="text-gray-300">記事を読み込み中...</div>
+                    <div class="bg-theme-card border border-theme-card-border rounded-2xl p-6 shadow-lg">
+                        <h3 class="text-2xl font-bold text-theme-title mb-4">kumatechの最新記事</h3>
+                        <div id="kumatech-recent-posts" class="text-theme-text">記事を読み込み中...</div>
                     </div>
-                </div>
-            </section>
-
-            <!-- 結びの挨拶セクション -->
-            <section class="py-20 md:py-28 text-center">
-                <div class="container mx-auto px-4">
-                    <h2 class="text-3xl font-bold text-white mb-4">Thanks for visiting!</h2>
-                    <p class="text-gray-300 max-w-xl mx-auto">
-                        ゆっくり見ていってください。何か面白い発見があれば嬉しいです。
-                    </p>
                 </div>
             </section>
         </main>
         
         <footer class="py-6">
-             <div class="container mx-auto px-6 text-center text-gray-400 text-sm">
+             <div class="container mx-auto px-6 text-center text-theme-footer text-sm">
                 &copy; 2025 Kuma. All Rights Reserved.
              </div>
         </footer>
     </div>
 
-    <!-- 背景の山々 -->
-    <div class="mountain-background">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,120 L250,50 C400,80 500,100 800,40 L1200,100 L1200,120 L0,120 Z" fill="#3b4a6b" opacity="0.8"></path>
-            <path d="M0,120 L150,80 C300,120 400,100 600,70 C800,100 900,110 1200,80 L1200,120 L0,120 Z" fill="#4a69bd"></path>
-        </svg>
-    </div>
+    <!-- 背景の山々などを表示するコンテナ -->
+    <div id="background-elements"></div>
 
     <script>
-    // 各ブログの設定
+    document.addEventListener("DOMContentLoaded", () => {
+        const themeStyle = document.getElementById('theme-style');
+        const backgroundElements = document.getElementById('background-elements');
+
+        // テーマを適用する関数
+        function applyTheme(themeFile) {
+            themeStyle.href = themeFile;
+
+            // テーマ固有のSVG背景などをロード
+            fetch(themeFile)
+                .then(response => response.text())
+                .then(cssText => {
+                    const svgMatch = cssText.match(/\/\* SVG_BACKGROUND_START \*\/(.*?)\/\* SVG_BACKGROUND_END \*\//s);
+                    if (svgMatch && svgMatch[1]) {
+                        backgroundElements.innerHTML = svgMatch[1];
+                    } else {
+                        backgroundElements.innerHTML = '';
+                    }
+                });
+        }
+
+        // theme.jsonを読み込んでテーマを適用
+        fetch('theme.json')
+            .then(response => {
+                if (!response.ok) throw new Error('theme.json not found');
+                return response.json();
+            })
+            .then(config => {
+                if (config && config.activeTheme) {
+                    applyTheme(config.activeTheme);
+                } else {
+                    console.error('activeTheme not defined in theme.json. Loading default.');
+                    applyTheme('theme-night.css'); // フォールバック
+                }
+            })
+            .catch(error => {
+                console.error('Error loading theme.json:', error);
+                applyTheme('theme-night.css'); // フォールバック
+            });
+        
+        // ブログ記事の読み込み
+        loadRecentBlogPosts();
+    });
+
+
+    // --- ここからブログ記事読み込みのコード (修正後) ---
     const BLOG_CONFIGS = [
-        {
-            id: 'kumabiyori', // HTMLのIDと合わせる
-            url: "https://kumabiyori555.blogspot.com",
-            numPosts: 5
+        { 
+            id: 'kumabiyori', 
+            // BloggerのRSSフィードのURLを指定
+            rssUrl: "https://kumabiyori555.blogspot.com/feeds/posts/default?alt=rss", 
+            numPosts: 5 
         },
-        {
-            id: 'kumatech', // HTMLのIDと合わせる
-            url: "https://kumatech777.blogspot.com",
-            numPosts: 5
+        { 
+            id: 'kumatech', 
+            rssUrl: "https://kumatech777.blogspot.com/feeds/posts/default?alt=rss", 
+            numPosts: 5 
         }
     ];
 
-    // JSONPコールバック関数をグローバルスコープに定義
-    window.gdata = window.gdata || {};
-    window.gdata.io = window.gdata.io || {};
-
-    // 共通のフィードハンドラー関数
-    function handleBloggerFeed(data, blogId) {
+    // 記事リストを表示する関数
+    function displayPosts(blogId, posts) {
         const container = document.getElementById(`${blogId}-recent-posts`);
-        if (!container) {
-            console.error(`記事リストを表示するコンテナが見つかりません。ID: '${blogId}-recent-posts' を確認してください。`);
-            return;
-        }
+        if (!container) return;
+        
+        container.innerHTML = ''; // 「読み込み中...」をクリア
 
-        container.innerHTML = ''; // 既存の内容をクリア
-
-        if (data.feed && data.feed.entry && data.feed.entry.length > 0) {
+        if (posts && posts.length > 0) {
             const ul = document.createElement("ul");
             ul.className = 'space-y-2';
-
-            data.feed.entry.forEach(entry => {
+            
+            // numPostsの数だけ記事を切り出して表示
+            posts.slice(0, BLOG_CONFIGS.find(b => b.id === blogId).numPosts).forEach(post => {
                 const li = document.createElement("li");
-                
                 const a = document.createElement("a");
-                const link = entry.link.find(l => l.rel === "alternate" && l.type === "text/html");
-
-                if (link) {
-                    a.href = link.href;
-                    a.textContent = entry.title.$t;
-                    a.target = "_blank";
-                    a.rel = "noopener noreferrer";
-                    a.className = 'text-gray-200 hover:text-white transition-colors duration-300';
-                    
-                    li.appendChild(a);
-                    ul.appendChild(li);
-                }
+                a.href = post.link;
+                a.textContent = post.title;
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+                a.className = 'text-theme-link hover:text-theme-link-hover transition-colors duration-300';
+                li.appendChild(a);
+ul.appendChild(li);
             });
             container.appendChild(ul);
         } else {
             container.textContent = "まだ投稿がないみたい...";
         }
-
-        const scriptTag = document.getElementById(`bloggerFeedScript-${blogId}`);
-        if (scriptTag) {
-            scriptTag.remove();
-        }
     }
 
+    // 各ブログの最新記事を読み込む関数
     function loadRecentBlogPosts() {
         BLOG_CONFIGS.forEach(config => {
-            const existingScriptTag = document.getElementById(`bloggerFeedScript-${config.id}`);
-            if (existingScriptTag) {
-                existingScriptTag.remove();
-            }
+            // RSSフィードをJSONに変換する外部APIのURLを作成
+            const rssToJsonApi = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(config.rssUrl)}`;
 
-            const script = document.createElement('script');
-            script.id = `bloggerFeedScript-${config.id}`;
-            
-            const callbackName = `gdata.io.handleScriptLoaded_${config.id}`;
-            window.gdata.io[`handleScriptLoaded_${config.id}`] = function(data) {
-                handleBloggerFeed(data, config.id);
-            };
-
-            script.src = `${config.url}/feeds/posts/default?alt=json-in-script&callback=${callbackName}&max-results=${config.numPosts}`;
-            document.body.appendChild(script);
-
-            script.onerror = function() {
-                const container = document.getElementById(`${config.id}-recent-posts`);
-                if (container) {
-                    container.textContent = "記事の読み込み中にエラーが発生しました。";
-                }
-                console.error(`Bloggerフィード (${config.id}) の読み込みに失敗しました。`);
-            };
+            // fetchを使ってAPIからデータを取得
+            fetch(rssToJsonApi)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'ok') {
+                        // 成功したら記事を表示
+                        displayPosts(config.id, data.items);
+                    } else {
+                        throw new Error('Failed to parse RSS feed');
+                    }
+                })
+                .catch(error => {
+                    console.error(`Error loading blog posts for ${config.id}:`, error);
+                    const container = document.getElementById(`${config.id}-recent-posts`);
+                    if (container) {
+                        container.textContent = "記事の読み込みに失敗しました。";
+                    }
+                });
         });
     }
-
-    document.addEventListener("DOMContentLoaded", loadRecentBlogPosts);
     </script>
 </body>
 </html>

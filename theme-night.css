@@ -1,0 +1,59 @@
+/* CSS変数を使って、テーマ全体の色を管理します。
+  これにより、色の変更が簡単になります。
+*/
+:root {
+    --color-title: #FFFFFF;
+    --color-subtitle: #E0E0E0;
+    --color-text: #E0E0E0;
+    --color-link: #d1d5db;
+    --color-link-hover: #ffffff;
+    --color-footer: #a0aec0;
+    --bg-card: rgba(255, 255, 255, 0.1);
+    --border-card: rgba(255, 255, 255, 0.2);
+    --bg-button: #FFFFFF;
+    --color-button-text: #111827;
+    --bg-button-hover: #e5e7eb;
+}
+
+body {
+    background-color: #2c3e50;
+    background-image: 
+        radial-gradient(1px 1px at 10% 5%, white, transparent),
+        radial-gradient(1.5px 1.5px at 20% 15%, rgba(220, 220, 255, 0.9), transparent),
+        radial-gradient(1px 1px at 35% 8%, white, transparent),
+        radial-gradient(1px 1px at 50% 3%, white, transparent),
+        radial-gradient(1.5px 1.5px at 60% 12%, white, transparent),
+        radial-gradient(1px 1px at 75% 18%, rgba(220, 220, 255, 0.8), transparent),
+        radial-gradient(1px 1px at 90% 10%, white, transparent),
+        radial-gradient(1px 1px at 5% 30%, white, transparent),
+        radial-gradient(1.5px 1.5px at 25% 40%, rgba(220, 220, 255, 0.7), transparent),
+        radial-gradient(1px 1px at 45% 35%, white, transparent),
+        linear-gradient(to top, #6e83a3 0%, #3a506b 30%, #2c3e50 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Tailwind CSSのクラスをCSS変数で上書き */
+.text-theme-title { color: var(--color-title); }
+.text-theme-subtitle { color: var(--color-subtitle); }
+.text-theme-text { color: var(--color-text); }
+.text-theme-link { color: var(--color-link); }
+.hover\:text-theme-link-hover:hover { color: var(--color-link-hover); }
+.text-theme-footer { color: var(--color-footer); }
+.bg-theme-card { background-color: var(--bg-card); backdrop-filter: blur(4px); }
+.border-theme-card-border { border-color: var(--border-card); }
+.bg-theme-button { background-color: var(--bg-button); }
+.text-theme-button-text { color: var(--color-button-text); }
+.hover\:bg-theme-button-hover:hover { background-color: var(--bg-button-hover); }
+
+
+/* SVG_BACKGROUND_START */
+<div class="mountain-background">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,120 L250,50 C400,80 500,100 800,40 L1200,100 L1200,120 L0,120 Z" fill="#3b4a6b" opacity="0.8"></path>
+        <path d="M0,120 L150,80 C300,120 400,100 600,70 C800,100 900,110 1200,80 L1200,120 L0,120 Z" fill="#4a69bd"></path>
+    </svg>
+</div>
+/* SVG_BACKGROUND_END */
+
+
