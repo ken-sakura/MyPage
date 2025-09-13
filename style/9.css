@@ -1,0 +1,35 @@
+/* 9月: 秋のテーマ (September: Autumn Theme) */
+:root {
+    --color-title: #D35400; /* オレンジ */
+    --color-subtitle: #E67E22; /* キャロット */
+    --color-text: #34495E; /* ウェットアスファルト */
+    --color-link: #C0392B; /* ポメグラネット */
+    --color-link-hover: #E74C3C; /* アリザリン */
+    --color-footer: #34495E;
+    --bg-card: rgba(255, 255, 255, 0.7);
+    --border-card: rgba(230, 126, 34, 0.5);
+    --bg-button: #D35400;
+    --color-button-text: #FFFFFF;
+    --bg-button-hover: #E67E22;
+}
+
+body {
+    background-color: #FDEBD0;
+    background-image: linear-gradient(to bottom, #FAD7A0 0%, #F5B041 100%);
+    background-attachment: fixed;
+}
+
+/* Tailwind CSSのクラスをCSS変数で上書き */
+.text-theme-title { color: var(--color-title); }
+.text-theme-subtitle { color: var(--color-subtitle); }
+.text-theme-text { color: var(--color-text); }
+.text-theme-link { color: var(--color-link); }
+.hover\:text-theme-link-hover:hover { color: var(--color-link-hover); }
+.text-theme-footer { color: var(--color-footer); }
+.bg-theme-card { background-color: var(--bg-card); backdrop-filter: blur(4px); }
+.border-theme-card-border { border-color: var(--border-card); }
+.bg-theme-button { background-color: var(--bg-button); }
+.text-theme-button-text { color: var(--color-button-text); }
+.hover\:bg-theme-button-hover:hover { background-color: var(--bg-button-hover); }
+
+

@@ -1,0 +1,35 @@
+/* 11月: 紅葉テーマ (November: Autumn Leaves Theme) */
+:root {
+    --color-title: #BF360C; /* 深い赤 */
+    --color-subtitle: #EF6C00; /* オレンジ */
+    --color-text: #4E342E;
+    --color-link: #D84315;
+    --color-link-hover: #F4511E;
+    --color-footer: #4E342E;
+    --bg-card: rgba(255, 253, 250, 0.75);
+    --border-card: rgba(239, 108, 0, 0.5);
+    --bg-button: #BF360C;
+    --color-button-text: #FFFFFF;
+    --bg-button-hover: #D84315;
+}
+
+body {
+    background-color: #FFF3E0;
+    background-image: linear-gradient(to bottom, #FFE0B2 0%, #FFCC80 100%);
+    background-attachment: fixed;
+}
+
+/* Tailwind CSSのクラスをCSS変数で上書き */
+.text-theme-title { color: var(--color-title); }
+.text-theme-subtitle { color: var(--color-subtitle); }
+.text-theme-text { color: var(--color-text); }
+.text-theme-link { color: var(--color-link); }
+.hover\:text-theme-link-hover:hover { color: var(--color-link-hover); }
+.text-theme-footer { color: var(--color-footer); }
+.bg-theme-card { background-color: var(--bg-card); backdrop-filter: blur(4px); }
+.border-theme-card-border { border-color: var(--border-card); }
+.bg-theme-button { background-color: var(--bg-button); }
+.text-theme-button-text { color: var(--color-button-text); }
+.hover\:bg-theme-button-hover:hover { background-color: var(--bg-button-hover); }
+
+

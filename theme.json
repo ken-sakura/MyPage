@@ -1,5 +1,5 @@
 {
-  "mode": "event", 
+  "mode": "monthly", 
   "eventTheme": "./style/theme-night.css",
   "monthlyThemePath": "./style/"
 }

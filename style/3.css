@@ -1,0 +1,34 @@
+/* 3月: 早春テーマ (March: Early Spring Theme) */
+:root {
+    --color-title: #2E7D32; /* 濃い緑 */
+    --color-subtitle: #FFB74D; /* 菜の花色 */
+    --color-text: #37474F;
+    --color-link: #66BB6A; /* 若葉色 */
+    --color-link-hover: #4CAF50;
+    --color-footer: #2E7D32;
+    --bg-card: rgba(255, 255, 255, 0.8);
+    --border-card: rgba(102, 187, 106, 0.5);
+    --bg-button: #FFB74D;
+    --color-button-text: #3E2723;
+    --bg-button-hover: #FFA726;
+}
+
+body {
+    background-color: #E8F5E9; /* 明るい緑 */
+    background-image: linear-gradient(to bottom, #C8E6C9 0%, #A5D6A7 100%);
+    background-attachment: fixed;
+}
+
+/* Tailwind CSSのクラスをCSS変数で上書き */
+.text-theme-title { color: var(--color-title); }
+.text-theme-subtitle { color: var(--color-subtitle); }
+.text-theme-text { color: var(--color-text); }
+.text-theme-link { color: var(--color-link); }
+.hover\:text-theme-link-hover:hover { color: var(--color-link-hover); }
+.text-theme-footer { color: var(--color-footer); }
+.bg-theme-card { background-color: var(--bg-card); backdrop-filter: blur(4px); }
+.border-theme-card-border { border-color: var(--border-card); }
+.bg-theme-button { background-color: var(--bg-button); }
+.text-theme-button-text { color: var(--color-button-text); }
+.hover\:bg-theme-button-hover:hover { background-color: var(--bg-button-hover); }
+
