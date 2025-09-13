@@ -1,23 +1,65 @@
-/* 9月: 秋のテーマ (September: Autumn Theme) */
+/* 9月: お月見テーマ (September: Moon Viewing Theme) */
 :root {
-    --color-title: #D35400; /* オレンジ */
-    --color-subtitle: #E67E22; /* キャロット */
-    --color-text: #34495E; /* ウェットアスファルト */
-    --color-link: #C0392B; /* ポメグラネット */
-    --color-link-hover: #E74C3C; /* アリザリン */
-    --color-footer: #34495E;
-    --bg-card: rgba(255, 255, 255, 0.7);
-    --border-card: rgba(230, 126, 34, 0.5);
-    --bg-button: #D35400;
-    --color-button-text: #FFFFFF;
-    --bg-button-hover: #E67E22;
+    --color-title: #FFEB3B; /* 月の黄色 */
+    --color-subtitle: #E0E0E0; /* 明るい灰色 */
+    --color-text: #F5F5F5;
+    --color-link: #81D4FA; /* 夜空の明るい青 */
+    --color-link-hover: #B3E5FC;
+    --color-footer: #E0E0E0;
+    --bg-card: rgba(50, 50, 80, 0.6);
+    --border-card: rgba(255, 255, 255, 0.3);
+    --bg-button: #FFEB3B;
+    --color-button-text: #2c3e50;
+    --bg-button-hover: #FFF176;
 }
 
 body {
-    background-color: #FDEBD0;
-    background-image: linear-gradient(to bottom, #FAD7A0 0%, #F5B041 100%);
+    background-color: #0c0c1e;
+    background-image: linear-gradient(to bottom, #19193b 0%, #2c3e50 100%);
     background-attachment: fixed;
+    overflow-x: hidden;
 }
+
+/* 月 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 25%; /* 題名と被らないように位置を調整 */
+    right: 15%;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, #FFFDE7 60%, rgba(255, 253, 231, 0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* お団子 */
+body::after {
+    content: '';
+    position: fixed;
+    /* 一番上の団子の位置を調整 */
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px; /* 団子一つのサイズ */
+    height: 25px;
+    background: #f1f1f1;
+    border-radius: 50%;
+    /* box-shadowで残りの団子と台を描画 */
+    box-shadow:
+        /* 2段目 */
+        -15px 25px 0 #f1f1f1,
+        15px 25px 0 #f1f1f1,
+        /* 3段目 */
+        -30px 50px 0 #f1f1f1,
+        0px 50px 0 #f1f1f1,
+        30px 50px 0 #f1f1f1,
+        /* 台 */
+        0px 80px 0 -5px #a1887f,
+        -50px 80px 10px -5px transparent;
+    z-index: -1;
+}
+
 
 /* Tailwind CSSのクラスをCSS変数で上書き */
 .text-theme-title { color: var(--color-title); }
@@ -31,5 +73,4 @@ body {
 .bg-theme-button { background-color: var(--bg-button); }
 .text-theme-button-text { color: var(--color-button-text); }
 .hover\:bg-theme-button-hover:hover { background-color: var(--bg-button-hover); }
-
 

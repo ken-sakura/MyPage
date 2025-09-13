@@ -1,23 +1,121 @@
 /* 10月: ハロウィンテーマ (October: Halloween Theme) */
 :root {
-    --color-title: #F57C00; /* オレンジ */
-    --color-subtitle: #8E44AD; /* 紫 */
-    --color-text: #CFD8DC;
-    --color-link: #FBC02D; /* 黄色 */
-    --color-link-hover: #F9A825;
-    --color-footer: #ECEFF1;
-    --bg-card: rgba(40, 40, 40, 0.6);
-    --border-card: rgba(245, 124, 0, 0.5);
-    --bg-button: #8E44AD;
+    --color-title: #FF7043; /* ディープオレンジ */
+    --color-subtitle: #F8BBD0; /* ライトピンク */
+    --color-text: #E1E1E1;
+    --color-link: #BA68C8; /* ラベンダー */
+    --color-link-hover: #CE93D8;
+    --color-footer: #BDBDBD;
+    --bg-card: rgba(30, 30, 30, 0.7);
+    --border-card: rgba(255, 112, 67, 0.5);
+    --bg-button: #7E57C2; /* ディープパープル */
     --color-button-text: #FFFFFF;
-    --bg-button-hover: #9B59B6;
+    --bg-button-hover: #9575CD;
 }
 
 body {
-    background-color: #212121;
-    background-image: linear-gradient(to bottom, #311B92 0%, #4A148C 100%);
+    background-color: #121212;
+    background-image: linear-gradient(to bottom, #212121 0%, #424242 100%);
     background-attachment: fixed;
+    overflow-x: hidden;
 }
+
+/* ジャック・オー・ランタンの口の光が揺れるアニメーション */
+@keyframes flicker {
+  0%, 100% {
+    background-color: #FFEB3B; /* イエロー */
+    box-shadow: 0 0 5px #FFEB3B, 0 0 15px #FBC02D, 0 0 25px #F57F17;
+  }
+  50% {
+    background-color: #FFF9C4; /* ライトイエロー */
+    box-shadow: 0 0 8px #FFF9C4, 0 0 20px #FBC02D, 0 0 30px #F57F17;
+  }
+}
+
+/* 目を点滅させるアニメーション */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+
+/* ジャック・オー・ランタン本体のコンテナ（両端に配置） */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    bottom: 20px;
+    width: 100px;
+    height: 80px;
+    background: radial-gradient(circle at 50% 120%, #c64600, #ff8c00);
+    border-radius: 50% / 60%;
+    z-index: 0; /* 顔より後ろに表示 */
+    border-top: 5px solid #562c00; /* ヘタの部分 */
+}
+
+/* 左側のランタン */
+body::before {
+    left: 20px;
+}
+
+/* 右側のランタン */
+body::after {
+    right: 20px;
+}
+
+/* ジャック・オー・ランタンの顔を描画するための要素 */
+.jack-o-lantern-face {
+    position: fixed;
+    bottom: 20px;
+    width: 100px;
+    height: 80px;
+    z-index: 1; /* かぼちゃ本体より手前に表示 */
+}
+
+.jack-o-lantern-face.left {
+    left: 20px;
+}
+
+.jack-o-lantern-face.right {
+    right: 20px;
+}
+
+/* 三角形の目 */
+.eye {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    /* 色を直接指定して光っているように見せる */
+    border-bottom: 15px solid #FFEB3B;
+    box-shadow: 0 5px 15px #FBC02D;
+    top: 25px;
+    /* 点滅アニメーションを適用 */
+    animation: blink 2.5s ease-in-out infinite;
+}
+
+.eye.left-eye {
+    left: 20px;
+}
+
+.eye.right-eye {
+    right: 20px;
+}
+
+/* ギザギザの口 */
+.mouth {
+    position: absolute;
+    width: 50px;
+    height: 20px;
+    bottom: 15px;
+    left: 25px;
+    background-color: #FFEB3B;
+    clip-path: polygon(0 50%, 10% 0, 20% 50%, 30% 0, 40% 50%, 50% 0, 60% 50%, 70% 0, 80% 50%, 90% 0, 100% 50%, 80% 100%, 20% 100%);
+    /* 口は揺らめく光のアニメーション */
+    animation: flicker 1.5s ease-in-out infinite;
+}
+
 
 /* Tailwind CSSのクラスをCSS変数で上書き */
 .text-theme-title { color: var(--color-title); }

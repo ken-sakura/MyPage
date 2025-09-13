@@ -80,36 +80,25 @@
     <!-- 背景の山々などを表示するコンテナ -->
     <div id="background-elements"></div>
 
+    <!-- ジャック・オー・ランタンの顔を描画するためのHTML要素 -->
+    <div id="jack-o-lantern-container"></div>
+
     <script>
     document.addEventListener("DOMContentLoaded", () => {
         const themeStyle = document.getElementById('theme-style');
         const backgroundElements = document.getElementById('background-elements');
-        
-        // 現在のドキュメントの場所を基準に、絶対URLを解決するためのベースURLを作成します。
-        // blob: URLなど、相対パスの解決が難しい環境でのエラーを防ぎます。
-        const baseUrl = new URL('.', window.location.href).href;
 
-        /**
-         * テーマCSSファイルを適用し、SVG背景などの独自要素を抽出して表示する関数
-         * @param {string} themeFile 適用するCSSファイルのパス (相対パス)
-         */
+        // URLを解決するヘルパー関数
+        const resolveUrl = (url) => new URL(url, window.location.href).href;
+
+        // テーマを適用する関数
         function applyTheme(themeFile) {
-            if (!themeFile) {
-                console.error("テーマファイルのパスが指定されていません。");
-                return;
-            }
-            // 相対パスを絶対URLに変換
-            const themeUrl = new URL(themeFile, baseUrl).href;
+            const themeUrl = resolveUrl(themeFile);
             themeStyle.href = themeUrl;
 
             // テーマ固有のSVG背景などをロード
             fetch(themeUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`テーマファイルの読み込みに失敗しました: ${themeFile}`);
-                    }
-                    return response.text();
-                })
+                .then(response => response.text())
                 .then(cssText => {
                     const svgMatch = cssText.match(/\/\* SVG_BACKGROUND_START \*\/(.*?)\/\* SVG_BACKGROUND_END \*\//s);
                     if (svgMatch && svgMatch[1]) {
@@ -117,43 +106,55 @@
                     } else {
                         backgroundElements.innerHTML = '';
                     }
-                })
-                .catch(error => console.error(error));
+
+                    // 10月のテーマの場合、ジャック・オー・ランタンの顔を追加
+                    const jackOLanternContainer = document.getElementById('jack-o-lantern-container');
+                    if (themeFile.endsWith('10.css')) {
+                        jackOLanternContainer.innerHTML = `
+                            <div class="jack-o-lantern-face left">
+                                <div class="eye left-eye"></div>
+                                <div class="eye right-eye"></div>
+                                <div class="mouth"></div>
+                            </div>
+                            <div class="jack-o-lantern-face right">
+                                <div class="eye left-eye"></div>
+                                <div class="eye right-eye"></div>
+                                <div class="mouth"></div>
+                            </div>
+                        `;
+                    } else {
+                        jackOLanternContainer.innerHTML = '';
+                    }
+                });
         }
 
         // theme.jsonを読み込んでテーマを適用
-        const themeJsonUrl = new URL('theme.json', baseUrl).href;
-        fetch(themeJsonUrl)
+        fetch(resolveUrl('theme.json'))
             .then(response => {
-                if (!response.ok) throw new Error('theme.jsonが見つかりません。');
+                if (!response.ok) throw new Error('theme.json not found');
                 return response.json();
             })
             .then(config => {
-                // 'mode'プロパティで処理を分岐
+                let themeFileToLoad;
                 if (config.mode === 'monthly') {
-                    const month = new Date().getMonth() + 1; // 1月=1, 2月=2...
-                    const themePath = config.monthlyThemePath || './style/';
-                    const themeFile = `${themePath}${month}.css`;
-                    applyTheme(themeFile);
-                } else if (config.mode === 'event' && config.eventTheme) {
-                    applyTheme(config.eventTheme);
+                    const month = new Date().getMonth() + 1;
+                    themeFileToLoad = `${config.monthlyThemePath}${month}.css`;
                 } else {
-                    // JSONの設定が不完全な場合のフォールバック
-                    console.error('theme.jsonの設定が正しくありません。デフォルトテーマを読み込みます。');
-                    applyTheme('./style/theme-night.css');
+                    themeFileToLoad = config.eventTheme;
                 }
+                applyTheme(themeFileToLoad);
             })
             .catch(error => {
                 console.error('theme.jsonの読み込みエラー:', error);
-                applyTheme('./style/theme-night.css'); // JSONファイルがない場合のフォールバック
+                // フォールバックテーマ
+                applyTheme('./style/theme-night.css');
             });
         
         // ブログ記事の読み込み
         loadRecentBlogPosts();
     });
 
-
-    // --- ここからブログ記事読み込みのコード (修正なし) ---
+    // --- ここからブログ記事読み込みのコード ---
     const BLOG_CONFIGS = [
         { 
             id: 'kumabiyori', 
@@ -200,9 +201,7 @@
 
             fetch(rssToJsonApi)
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
+                    if (!response.ok) throw new Error('Network response was not ok');
                     return response.json();
                 })
                 .then(data => {

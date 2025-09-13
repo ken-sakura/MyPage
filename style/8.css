@@ -1,24 +1,87 @@
-/* 8月: 花火テーマ (August: Fireworks Theme) */
+/* 8月: 夏祭り・花火テーマ (August: Summer Festival/Fireworks Theme) */
 :root {
-    --color-title: #FFEB3B; /* 黄色 */
-    --color-subtitle: #E0E0E0; /* 明るい灰色 */
-    --color-text: #F5F5F5;
-    --color-link: #03A9F4; /* ライトブルー */
-    --color-link-hover: #81D4FA;
-    --color-footer: #E0E0E0;
-    --bg-card: rgba(33, 33, 33, 0.5);
-    --border-card: rgba(255, 255, 255, 0.3);
-    --bg-button: #FFEB3B;
-    --color-button-text: #212121;
-    --bg-button-hover: #FFF176;
+    --color-title: #FFD700; /* ゴールド */
+    --color-subtitle: #FF69B4; /* ホットピンク */
+    --color-text: #F0F8FF; /* アリスブルー */
+    --color-link: #00BFFF; /* ディープスカイブルー */
+    --color-link-hover: #1E90FF;
+    --color-footer: #F0F8FF;
+    --bg-card: rgba(25, 25, 112, 0.7); /* ミッドナイトブルー */
+    --border-card: rgba(255, 215, 0, 0.5);
+    --bg-button: #FF4500; /* オレンジレッド */
+    --color-button-text: #FFFFFF;
+    --bg-button-hover: #FF6347; /* トマト */
 }
 
 body {
-    background-color: #000033;
-    background-image: linear-gradient(to bottom, #0c0c1e 0%, #19193b 100%);
+    background-color: #000020; /* 深い夜空 */
+    background-image: linear-gradient(to bottom, #010A1A 0%, #191970 100%);
     background-attachment: fixed;
-    overflow: hidden;
+    overflow-y: auto; /* スクロールできるように修正 */
+    overflow-x: hidden; /* 横スクロールは防止 */
 }
+
+/* 打ち上げ花火のアニメーション */
+@keyframes firework-burst {
+  0% {
+    transform: scale(0.1);
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* 1つ目の花火 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 15%; /* 位置を上に調整 */
+    left: 20%;
+    width: 5px;
+    height: 5px;
+    background: transparent;
+    border-radius: 50%;
+    z-index: -1;
+    box-shadow: 
+        /* 放射状に広がる光 */
+        0 -50px 0 #ffdd00, 50px 0 0 #ffdd00, 0 50px 0 #ffdd00, -50px 0 0 #ffdd00,
+        35px -35px 0 #ffdd00, 35px 35px 0 #ffdd00, -35px 35px 0 #ffdd00, -35px -35px 0 #ffdd00,
+        /* さらに細かい光 */
+        0 -25px 0 2px #ff69b4, 25px 0 0 2px #ff69b4, 0 25px 0 2px #ff69b4, -25px 0 0 2px #ff69b4;
+    transform: scale(0.1);
+    opacity: 0;
+    animation: firework-burst 3s ease-out infinite;
+    animation-delay: 1s; /* アニメーションの開始を遅らせる */
+}
+
+/* 2つ目の花火 */
+body::after {
+    content: '';
+    position: fixed;
+    top: 25%; /* 位置を上に調整 */
+    right: 25%;
+    width: 6px;
+    height: 6px;
+    background: transparent;
+    border-radius: 50%;
+    z-index: -1;
+    box-shadow: 
+        /* 放射状に広がる光 */
+        0 -60px 0 #00BFFF, 60px 0 0 #00BFFF, 0 60px 0 #00BFFF, -60px 0 0 #00BFFF,
+        42px -42px 0 #00BFFF, 42px 42px 0 #00BFFF, -42px 42px 0 #00BFFF, -42px -42px 0 #00BFFF,
+        /* さらに細かい光 */
+        0 -30px 0 3px #f0f, 30px 0 0 3px #f0f, 0 30px 0 3px #f0f, -30px 0 0 3px #f0f;
+    transform: scale(0.1);
+    opacity: 0;
+    animation: firework-burst 3s ease-out infinite;
+    animation-delay: 2.5s; /* 1つ目とタイミングをずらす */
+}
+
 
 /* Tailwind CSSのクラスをCSS変数で上書き */
 .text-theme-title { color: var(--color-title); }
