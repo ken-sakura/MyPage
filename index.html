@@ -84,14 +84,32 @@
     document.addEventListener("DOMContentLoaded", () => {
         const themeStyle = document.getElementById('theme-style');
         const backgroundElements = document.getElementById('background-elements');
+        
+        // 現在のドキュメントの場所を基準に、絶対URLを解決するためのベースURLを作成します。
+        // blob: URLなど、相対パスの解決が難しい環境でのエラーを防ぎます。
+        const baseUrl = new URL('.', window.location.href).href;
 
-        // テーマを適用する関数
+        /**
+         * テーマCSSファイルを適用し、SVG背景などの独自要素を抽出して表示する関数
+         * @param {string} themeFile 適用するCSSファイルのパス (相対パス)
+         */
         function applyTheme(themeFile) {
-            themeStyle.href = themeFile;
+            if (!themeFile) {
+                console.error("テーマファイルのパスが指定されていません。");
+                return;
+            }
+            // 相対パスを絶対URLに変換
+            const themeUrl = new URL(themeFile, baseUrl).href;
+            themeStyle.href = themeUrl;
 
             // テーマ固有のSVG背景などをロード
-            fetch(themeFile)
-                .then(response => response.text())
+            fetch(themeUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`テーマファイルの読み込みに失敗しました: ${themeFile}`);
+                    }
+                    return response.text();
+                })
                 .then(cssText => {
                     const svgMatch = cssText.match(/\/\* SVG_BACKGROUND_START \*\/(.*?)\/\* SVG_BACKGROUND_END \*\//s);
                     if (svgMatch && svgMatch[1]) {
@@ -99,26 +117,35 @@
                     } else {
                         backgroundElements.innerHTML = '';
                     }
-                });
+                })
+                .catch(error => console.error(error));
         }
 
         // theme.jsonを読み込んでテーマを適用
-        fetch('theme.json')
+        const themeJsonUrl = new URL('theme.json', baseUrl).href;
+        fetch(themeJsonUrl)
             .then(response => {
-                if (!response.ok) throw new Error('theme.json not found');
+                if (!response.ok) throw new Error('theme.jsonが見つかりません。');
                 return response.json();
             })
             .then(config => {
-                if (config && config.activeTheme) {
-                    applyTheme(config.activeTheme);
+                // 'mode'プロパティで処理を分岐
+                if (config.mode === 'monthly') {
+                    const month = new Date().getMonth() + 1; // 1月=1, 2月=2...
+                    const themePath = config.monthlyThemePath || './style/';
+                    const themeFile = `${themePath}${month}.css`;
+                    applyTheme(themeFile);
+                } else if (config.mode === 'event' && config.eventTheme) {
+                    applyTheme(config.eventTheme);
                 } else {
-                    console.error('activeTheme not defined in theme.json. Loading default.');
-                    applyTheme('theme-night.css'); // フォールバック
+                    // JSONの設定が不完全な場合のフォールバック
+                    console.error('theme.jsonの設定が正しくありません。デフォルトテーマを読み込みます。');
+                    applyTheme('./style/theme-night.css');
                 }
             })
             .catch(error => {
-                console.error('Error loading theme.json:', error);
-                applyTheme('theme-night.css'); // フォールバック
+                console.error('theme.jsonの読み込みエラー:', error);
+                applyTheme('./style/theme-night.css'); // JSONファイルがない場合のフォールバック
             });
         
         // ブログ記事の読み込み
@@ -126,11 +153,10 @@
     });
 
 
-    // --- ここからブログ記事読み込みのコード (修正後) ---
+    // --- ここからブログ記事読み込みのコード (修正なし) ---
     const BLOG_CONFIGS = [
         { 
             id: 'kumabiyori', 
-            // BloggerのRSSフィードのURLを指定
             rssUrl: "https://kumabiyori555.blogspot.com/feeds/posts/default?alt=rss", 
             numPosts: 5 
         },
@@ -141,18 +167,16 @@
         }
     ];
 
-    // 記事リストを表示する関数
     function displayPosts(blogId, posts) {
         const container = document.getElementById(`${blogId}-recent-posts`);
         if (!container) return;
         
-        container.innerHTML = ''; // 「読み込み中...」をクリア
+        container.innerHTML = ''; 
 
         if (posts && posts.length > 0) {
             const ul = document.createElement("ul");
             ul.className = 'space-y-2';
             
-            // numPostsの数だけ記事を切り出して表示
             posts.slice(0, BLOG_CONFIGS.find(b => b.id === blogId).numPosts).forEach(post => {
                 const li = document.createElement("li");
                 const a = document.createElement("a");
@@ -162,7 +186,7 @@
                 a.rel = "noopener noreferrer";
                 a.className = 'text-theme-link hover:text-theme-link-hover transition-colors duration-300';
                 li.appendChild(a);
-ul.appendChild(li);
+                ul.appendChild(li);
             });
             container.appendChild(ul);
         } else {
@@ -170,13 +194,10 @@ ul.appendChild(li);
         }
     }
 
-    // 各ブログの最新記事を読み込む関数
     function loadRecentBlogPosts() {
         BLOG_CONFIGS.forEach(config => {
-            // RSSフィードをJSONに変換する外部APIのURLを作成
             const rssToJsonApi = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(config.rssUrl)}`;
 
-            // fetchを使ってAPIからデータを取得
             fetch(rssToJsonApi)
                 .then(response => {
                     if (!response.ok) {
@@ -186,7 +207,6 @@ ul.appendChild(li);
                 })
                 .then(data => {
                     if (data.status === 'ok') {
-                        // 成功したら記事を表示
                         displayPosts(config.id, data.items);
                     } else {
                         throw new Error('Failed to parse RSS feed');
@@ -204,5 +224,4 @@ ul.appendChild(li);
     </script>
 </body>
 </html>
-
 

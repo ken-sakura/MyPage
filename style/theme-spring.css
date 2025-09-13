@@ -1,0 +1,118 @@
+/* 春テーマ：桜 (Spring Theme: Sakura)
+  CSS変数を使って、テーマ全体の色を管理します。
+*/
+:root {
+    --color-title: #5D4037; /* 濃い茶色（幹の色） */
+    --color-subtitle: #795548; /* やや明るい茶色 */
+    --color-text: #4E4E4E; /* ソフトな黒 */
+    --color-link: #E91E63; /* 鮮やかなピンク */
+    --color-link-hover: #F06292; /* 明るいピンク */
+    --color-footer: #E0E0E0; /* フッターはアスファルトの上なので明るい灰色 */
+    --bg-card: rgba(255, 255, 255, 0.65); /* 半透明の白 */
+    --border-card: rgba(255, 192, 203, 0.8); /* 桜色のボーダー */
+    --bg-button: #FFC0CB; /* ピンク */
+    --color-button-text: #5D4037; /* ボタンテキストは濃い茶色 */
+    --bg-button-hover: #FFB6C1; /* やや濃いピンク */
+}
+
+body {
+    background-color: #DFEFFF; /* 背景の基本色（空） */
+    background-image:
+        /* 道路の白線（破線） */
+        repeating-linear-gradient(
+            to right,
+            transparent 0,
+            transparent 20px,
+            rgba(255, 255, 255, 0.6) 20px,
+            rgba(255, 255, 255, 0.6) 40px
+        ),
+        /* 空からアスファルトへのグラデーション */
+        linear-gradient(to bottom, 
+            #B2EBF2 0%,      /* 明るい空の水色 */
+            #FAFAFA 40%,     /* 白っぽい中間色 */
+            #616161 96%,     /* アスファルトの濃い灰色 */
+            #424242 100%     /* さらに濃い灰色 */
+        );
+    background-repeat: repeat-x, no-repeat;
+    background-position: center 98%, center; /* 白線を下部98%の位置に配置 */
+    background-size: auto 4px, cover; /* 白線の太さを指定 */
+    background-attachment: fixed;
+    overflow-x: hidden; /* 花びらがはみ出てもスクロールバーが出ないように */
+}
+
+/* --- 桜の花びらアニメーション --- */
+
+/* アニメーションの定義 */
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* 花びらのコンテナとなる疑似要素 */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    top: -10vh; /* 開始位置を画面上部外にする */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* クリックを透過させる */
+    z-index: -1; /* 背景より手前、コンテンツより後ろ */
+    
+    /* 複数の花びらをグラデーションで描画 */
+    background-image: 
+        radial-gradient(circle, #F06292 40%, transparent 41%), /* 濃いピンク */
+        radial-gradient(circle, #E91E63 40%, transparent 41%), /* さらに濃いピンク */
+        radial-gradient(circle, #F06292 40%, transparent 41%), /* 濃いピンク */
+        radial-gradient(circle, white 40%, transparent 41%),
+        radial-gradient(circle, #E91E63 40%, transparent 41%), /* さらに濃いピンク */
+        radial-gradient(circle, white 40%, transparent 41%);
+    background-repeat: no-repeat;
+}
+
+/* 前景の花びら */
+body::before {
+    background-size: 
+        10px 10px, 15px 15px, 8px 8px,
+        12px 12px, 10px 10px, 7px 7px;
+    background-position: 
+        10% 0%, 25% 20%, 40% 10%,
+        60% 5%, 75% 25%, 90% 15%;
+    
+    animation: fall 12s linear infinite;
+}
+
+/* 背景の花びら (少し遅く、小さい) */
+body::after {
+    background-size: 
+        8px 8px, 12px 12px, 6px 6px,
+        9px 9px, 7px 7px, 5px 5px;
+    background-position: 
+        5% 30%, 20% 40%, 35% 35%,
+        55% 50%, 70% 45%, 85% 38%;
+
+    animation: fall 18s linear infinite;
+    animation-delay: -5s; /* 開始タイミングをずらす */
+}
+
+
+/* Tailwind CSSのクラスをCSS変数で上書き */
+.text-theme-title { color: var(--color-title); }
+.text-theme-subtitle { color: var(--color-subtitle); }
+.text-theme-text { color: var(--color-text); }
+.text-theme-link { color: var(--color-link); }
+.hover\:text-theme-link-hover:hover { color: var(--color-link-hover); }
+.text-theme-footer { color: var(--color-footer); }
+.bg-theme-card { background-color: var(--bg-card); backdrop-filter: blur(4px); }
+.border-theme-card-border { border-color: var(--border-card); }
+.bg-theme-button { background-color: var(--bg-button); }
+.text-theme-button-text { color: var(--color-button-text); }
+.hover\:bg-theme-button-hover:hover { background-color: var(--bg-button-hover); }
+
